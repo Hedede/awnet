@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 
 /*
  * Parses all numbers inside a string and ignores all other characters
