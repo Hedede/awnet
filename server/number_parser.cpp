@@ -1,4 +1,5 @@
 #include <server/number_parser.h>
+namespace aw {
 static const char numbers[] = "0123456789";
 std::vector<unsigned long long> parse_numbers(std::string const& text)
 {
@@ -17,3 +18,4 @@ std::vector<unsigned long long> parse_numbers(std::string const& text)
 	} while (true);
 	return result;
 }
+} // namespace aw

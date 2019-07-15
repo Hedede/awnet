@@ -5,6 +5,7 @@
 #include <numeric>
 #include <algorithm>
 
+namespace aw {
 template<typename T>
 std::string join(std::vector<T> const& vec, char delimiter = ' ')
 {
@@ -30,17 +31,18 @@ std::string generate_response(std::string const& message)
 	response += std::to_string(sum);
 	return response;
 }
+} // namespace aw
 
 int main(int, char** argv)
 {
-	socket sock{"/tmp/test.socket"};
+	aw::socket sock{"/tmp/test.socket"};
 
 	sock.listen(1); // listen for 1 client
 	sock.accept();
 
 	auto msg = sock.receive();
 
-	auto response = generate_response( std::string(msg) );
+	auto response = aw::generate_response( std::string(msg) );
 
 	sock.send( response );
 }

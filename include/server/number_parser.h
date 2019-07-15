@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 
+namespace aw {
 /*
  * Parses all numbers inside a string and ignores all other characters
  *
@@ -11,3 +12,4 @@
  * `{400, 200, 300}`
  */
 std::vector<unsigned long long> parse_numbers(std::string const& text);
+} // namespace aw

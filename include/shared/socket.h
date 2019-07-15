@@ -2,6 +2,7 @@
 #include <string>
 #include <string_view>
 
+namespace aw {
 struct socket {
 	socket(std::string name);
 	~socket();
@@ -18,3 +19,4 @@ private:
 	std::string name;
 	char buf[1024];
 };
+} // namespace aw

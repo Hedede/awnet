@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <iostream>
 
+namespace aw {
 [[noreturn]] static void throw_error(std::string where)
 {
 	throw std::runtime_error( where + ": " + strerror(errno) );
@@ -70,4 +71,4 @@ void socket::send(std::string_view what)
 	if (err == -1)
 		throw_error("write");
 }
-
+} // namespace aw
