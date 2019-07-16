@@ -27,12 +27,16 @@ void socket_listener::listen(int backlog)
 
 std::optional<socket_tcp> socket_listener::accept()
 {
-	int data_socket = ::accept( get_fd(), nullptr, nullptr);
+	struct sockaddr_in client_sa;
+	socklen_t sa_len = sizeof(client_sa);
+
+	int data_socket = ::accept( get_fd(), (struct sockaddr*)&client_sa, &sa_len);
 	if (data_socket == -1) {
 		check_would_block("accept");
 		return std::nullopt;
 	}
-	std::cerr << "accepted connection from " << data_socket << '\n';
+
+	std::cerr << "accepted connection from " << describe_address((struct sockaddr&)client_sa) << '\n';
 	return socket_tcp( data_socket );
 }
 } // namespace aw

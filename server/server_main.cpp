@@ -58,7 +58,7 @@ int main(int, char** argv)
 	{
 		aw::socket_datagram sock(0, 10000);
 
-		ip4_address addr;
+		aw::ip4_address addr;
 		std::uint16_t port;
 
 		auto msg = sock.receive( addr, port );
