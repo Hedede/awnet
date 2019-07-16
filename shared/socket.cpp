@@ -26,8 +26,18 @@ socket::socket(int type, ip4_address addr, std::uint16_t port)
 
 socket::~socket()
 {
-	close(fd);
+	close();
 }
+
+void socket::close()
+{
+	if (fd != -1)
+	{
+		::close(fd);
+		fd = -1;
+	}
+}
+
 
 void socket::make_non_blocking()
 {

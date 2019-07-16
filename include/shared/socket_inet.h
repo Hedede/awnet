@@ -4,6 +4,8 @@
 namespace aw {
 enum class socket_handle : int {};
 
+constexpr auto invalid_socket_handle = socket_handle(-1);
+
 struct socket {
 	socket(socket const&) = delete;
 	socket(socket&& other)
@@ -23,6 +25,8 @@ struct socket {
 	~socket();
 
 	socket_handle handle() const;
+
+	void close();
 
 protected:
 	socket(int fd)
