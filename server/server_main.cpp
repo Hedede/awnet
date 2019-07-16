@@ -33,16 +33,22 @@ std::string generate_response(std::string const& message)
 }
 } // namespace aw
 
+
+#include <shared/socket_datagram.h>
+#include <thread>
+
 int main(int, char** argv)
 {
-	aw::socket sock{"/tmp/test.socket"};
+	{
+		aw::socket_datagram sock(0, 10000);
 
-	sock.listen(1); // listen for 1 client
-	sock.accept();
+		ip4_address addr;
+		std::uint16_t port;
 
-	auto msg = sock.receive();
+		auto msg = sock.receive( addr, port );
 
-	auto response = aw::generate_response( std::string(msg) );
+		auto response = aw::generate_response( std::string(msg) );
 
-	sock.send( response );
+		sock.send( response, addr, port );
+	}
 }
