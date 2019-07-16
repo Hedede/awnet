@@ -1,4 +1,3 @@
-#include <shared/socket.h>
 #include <server/number_parser.h>
 #include <vector>
 #include <iostream>
@@ -34,11 +33,28 @@ std::string generate_response(std::string const& message)
 } // namespace aw
 
 
+#include <shared/socket_listener.h>
+#include <shared/socket_tcp.h>
 #include <shared/socket_datagram.h>
 #include <thread>
 
 int main(int, char** argv)
 {
+	{
+		aw::socket_listener sock(0, 10000, 32);
+
+		auto conn = sock.accept();
+		do {
+			conn = sock.accept();
+		} while(!conn);
+
+		auto msg = conn->receive( );
+
+		auto response = aw::generate_response( std::string(msg) );
+
+		conn->send( response );
+	}
+
 	{
 		aw::socket_datagram sock(0, 10000);
 
