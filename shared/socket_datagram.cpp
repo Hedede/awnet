@@ -10,7 +10,7 @@
 #include <shared/config.h>
 
 #include "error.h"
-#include "address_convert.h"
+#include "address_util.h"
 
 namespace aw {
 socket_datagram::socket_datagram(ip4_address addr, std::uint16_t port)
