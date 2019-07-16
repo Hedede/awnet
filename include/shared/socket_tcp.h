@@ -2,30 +2,12 @@
 #include <string>
 #include <string_view>
 #include <optional>
-#include <shared/address.h>
+#include <shared/socket_inet.h>
 
 namespace aw {
 class socket_listener;
-struct socket_tcp {
+struct socket_tcp : socket {
 	socket_tcp(ip4_address addr, std::uint16_t port);
-
-	socket_tcp(socket_tcp const&) = delete;
-	socket_tcp(socket_tcp&& other)
-		: fd(other.fd)
-	{
-		other.fd = 0;
-	}
-
-	socket_tcp& operator=(socket_tcp const&) = delete;
-	socket_tcp& operator=(socket_tcp&& other)
-	{
-		fd = other.fd;
-		other.fd = 0;
-		return *this;
-	}
-
-
-	~socket_tcp();
 
 	void listen(int backlog);
 	void accept();
@@ -36,10 +18,7 @@ struct socket_tcp {
 protected:
 	friend class socket_listener;
 	socket_tcp(int fd)
-		: fd(fd)
+		: socket(fd)
 	{}
-
-private:
-	int fd;
 };
 } // namespace aw

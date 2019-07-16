@@ -2,15 +2,13 @@
 #include <string>
 #include <optional>
 #include <string_view>
-#include <shared/address.h>
+#include <shared/socket_inet.h>
 
 namespace aw {
-
-struct socket_datagram {
+struct socket_datagram : socket {
 	// \exceptions
 	//    throws std::runtime_error if any error has occured
 	socket_datagram(ip4_address addr, std::uint16_t port);
-	~socket_datagram();
 
 	// receive a message from the socket
 	//
@@ -33,9 +31,5 @@ struct socket_datagram {
 	// \exceptions
 	//    throws std::runtime_error if any error has occured
 	void send(std::string_view, ip4_address addr, std::uint16_t port);
-
-private:
-	int fd;
 };
-
 } // namespace aw

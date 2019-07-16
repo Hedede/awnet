@@ -9,11 +9,10 @@ namespace aw {
 /*
  * Listens to TCP connections
  */
-struct socket_listener {
+struct socket_listener : socket_tcp {
 	// \param backlog
 	//    maximum number of pending connections
 	socket_listener(ip4_address addr, std::uint16_t port, int backlog);
-	~socket_listener();
 
 	/* attempt to accept a connection
 	 *
@@ -23,7 +22,7 @@ struct socket_listener {
 	 */
 	std::optional<socket_tcp> accept();
 
-private:
-	int fd;
+protected:
+	void listen(int backlog);
 };
 } // namespace aw
