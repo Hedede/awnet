@@ -16,13 +16,18 @@ socket_tcp::socket_tcp(ip4_address addr, std::uint16_t port)
 {
 }
 
-std::string socket_tcp::receive()
+socket_status socket_tcp::receive(std::string& msg)
 {
 	char buffer[MAX_MESSAGE_LENGTH];
 	auto size = read( get_fd(), buffer, sizeof(buffer));
 	if (size == -1)
 		throw_error("read");
-	return {buffer, size_t(size)};
+	if (size == 0)
+		return socket_status::closed;
+
+	msg.assign(buffer, size_t(size));
+
+	return socket_status::ok;
 }
 
 void socket_tcp::send(std::string_view what)

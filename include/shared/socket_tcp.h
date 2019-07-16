@@ -6,13 +6,17 @@
 
 namespace aw {
 class socket_listener;
+
+enum class socket_status {
+	ok,
+	closed,
+	would_block
+};
+
 struct socket_tcp : socket {
 	socket_tcp(ip4_address addr, std::uint16_t port);
 
-	void listen(int backlog);
-	void accept();
-
-	std::string receive();
+	socket_status receive(std::string& msg);
 	void send(std::string_view what);
 
 protected:

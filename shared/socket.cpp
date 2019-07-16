@@ -13,15 +13,15 @@ socket::socket(int type, ip4_address addr, std::uint16_t port)
 	if (fd == -1)
 		throw_error("socket");
 
-	auto sa = make_sockaddr_in(addr, port);
-	int err = bind(fd, (struct sockaddr*)&sa, sizeof(sa));
-	if (err == -1)
-		throw_error("bind");
-
 	int reuse = 1;
-	err = setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&reuse, sizeof(reuse));
+	int err = setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (const char*)&reuse, sizeof(reuse));
 	if (err == -1)
 		throw_error("setsockopt");
+
+	auto sa = make_sockaddr_in(addr, port);
+	err = bind(fd, (struct sockaddr*)&sa, sizeof(sa));
+	if (err == -1)
+		throw_error("bind");
 }
 
 socket::~socket()

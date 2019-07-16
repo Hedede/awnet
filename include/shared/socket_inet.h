@@ -33,7 +33,6 @@ protected:
 	socket(int type, ip4_address addr, std::uint16_t port);
 
 	int get_fd() { return fd; }
-
 	void make_non_blocking();
 
 private:

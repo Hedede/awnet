@@ -40,13 +40,20 @@ std::string join(std::vector<T> const& vec, char delimiter = ' ')
 
 std::string generate_response(std::string const& message)
 {
-	auto numbers = parse_numbers(message);
-	std::sort(numbers.begin(), numbers.end());
-	auto sum = std::accumulate(numbers.begin(), numbers.end(), 0ull);
+	try {
+		auto numbers = parse_numbers(message);
 
-	auto response = join(numbers);
-	response += '\n';
-	response += std::to_string(sum);
-	response += '\n';
+		std::sort(numbers.begin(), numbers.end());
+		auto sum = std::accumulate(numbers.begin(), numbers.end(), 0ull);
+
+		auto response = join(numbers);
+		response += '\n';
+		response += std::to_string(sum);
+		response += '\n';
+		return response;
+	} catch( std::out_of_range& ex ) {
+		return "error:\nnumber is too large\n";
+	}
+}
 	
 } // namespace aw
