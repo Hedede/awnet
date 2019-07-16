@@ -9,7 +9,7 @@ namespace aw {
 /*
  * Listens to TCP connections
  */
-struct socket_listener : socket_tcp {
+struct socket_listener : socket {
 	// \param backlog
 	//    maximum number of pending connections
 	socket_listener(ip4_address addr, std::uint16_t port, int backlog);
