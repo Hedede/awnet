@@ -1,11 +1,8 @@
 #pragma once
 #include <shared/address.h>
+#include <shared/socket_handle.h>
 
 namespace aw {
-enum class socket_handle : int {};
-
-constexpr auto invalid_socket_handle = socket_handle(-1);
-
 struct socket {
 	socket(socket const&) = delete;
 	socket(socket&& other)
