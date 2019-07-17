@@ -7,7 +7,7 @@ include_directories(include)
 
 add_executable(client client/client_main.cpp)
 add_executable(server server/server_main.cpp server/number_parser.cpp server/socket_multiplexer.cpp server/server_tcp.cpp server/server_udp.cpp server/server.cpp server/client_connection.cpp server/data_callback.cpp)
-add_library(common SHARED shared/socket.cpp shared/socket_datagram.cpp shared/socket_tcp.cpp shared/socket_listener.cpp)
+add_library(common SHARED shared/socket.cpp shared/socket_datagram.cpp shared/socket_tcp.cpp shared/socket_listener.cpp shared/address.cpp)
 
 target_compile_definitions(common PUBLIC lib)
 

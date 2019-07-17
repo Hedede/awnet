@@ -29,7 +29,9 @@ static auto receive_impl( int fd, int flags, std::string& msg, ip4_address& addr
 	if (size != -1) {
 		msg = std::string( buffer, size );
 
-		std::cerr << "received message from " << describe_address((struct sockaddr&)sa) << '\n';
+		std::cerr << "received message from ";
+		log_address(std::cerr, sa);
+		
 		extract_address( sa, addr, port );
 	}
 
