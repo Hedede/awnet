@@ -7,8 +7,8 @@
 
 namespace aw {
 udp_server::udp_server(ip4_address addr, std::uint16_t port, multiplexer& mux)
-	: sock(addr, port)
 {
+	sock.bind(addr, port);
 	mux.add(sock.handle(), *this);
 }
 
@@ -20,6 +20,8 @@ void udp_server::on_data_received()
 	auto msg = sock.receive_async( addr, port );
 	if (!msg)
 		return;
+
+	std::cerr << "received message from " << addr << " port: "<< port;
 
 	auto response = aw::generate_response( std::string(*msg) );
 

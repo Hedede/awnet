@@ -11,12 +11,12 @@
 
 namespace aw {
 socket_listener::socket_listener(ip4_address addr, std::uint16_t port, int backlog)
-	: socket(SOCK_STREAM, addr, port)
+	: socket(protocol::tcp)
 {
+	bind(addr, port);
 	make_non_blocking();
 	listen(backlog);
 	std::cerr << "listening on " << addr << ' ' << port << '\n';
-	
 }
 
 

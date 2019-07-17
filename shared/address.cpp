@@ -14,7 +14,7 @@ ip4_address parse_address(const char* str)
 	auto err = inet_pton(AF_INET, str, &out);
 	if (err == -1)
 		throw std::invalid_argument("Must supply a valid IPv4 address");
-	return out;
+	return ntohl(out);
 }
 
 std::uint16_t parse_port(const char* str)
@@ -28,6 +28,7 @@ std::uint16_t parse_port(const char* str)
 std::string address_string(ip4_address addr)
 {
 	char buf[INET_ADDRSTRLEN];
+	// addr = htonl(addr);
 	inet_ntop(AF_INET, &addr, buf, sizeof(buf));
 	return buf;
 }

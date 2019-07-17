@@ -14,7 +14,7 @@ enum class socket_status {
 };
 
 struct socket_tcp : socket {
-	socket_tcp(ip4_address addr, std::uint16_t port);
+	socket_tcp();
 
 	socket_status receive(std::string& msg);
 	void send(std::string_view what);

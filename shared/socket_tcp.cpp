@@ -11,8 +11,8 @@
 
 namespace aw {
 
-socket_tcp::socket_tcp(ip4_address addr, std::uint16_t port)
-	: socket(SOCK_STREAM, addr, port)
+socket_tcp::socket_tcp()
+	: socket(protocol::tcp)
 {
 }
 

@@ -13,8 +13,8 @@
 #include "address_util.h"
 
 namespace aw {
-socket_datagram::socket_datagram(ip4_address addr, std::uint16_t port)
-	: socket(SOCK_DGRAM, addr, port)
+socket_datagram::socket_datagram()
+	: socket(protocol::udp)
 {
 }
 
@@ -29,9 +29,6 @@ static auto receive_impl( int fd, int flags, std::string& msg, ip4_address& addr
 	if (size != -1) {
 		msg = std::string( buffer, size );
 
-		std::cerr << "received message from ";
-		log_address(std::cerr, sa);
-		
 		extract_address( sa, addr, port );
 	}
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <shared/address.h>
 #include <shared/socket_handle.h>
+#include <shared/protocols.h>
 
 namespace aw {
 struct socket {
@@ -23,6 +24,10 @@ struct socket {
 
 	socket_handle handle() const;
 
+
+	void bind(ip4_address addr, std::uint16_t port);
+	void connect(ip4_address addr, std::uint16_t port);
+
 	void close();
 
 protected:
@@ -30,10 +35,11 @@ protected:
 		: fd(fd)
 	{}
 
-	socket(int type, ip4_address addr, std::uint16_t port);
+	socket(protocol type);
 
 	int get_fd() { return fd; }
 	void make_non_blocking();
+	void set_reuse_addr();
 
 private:
 	int fd;

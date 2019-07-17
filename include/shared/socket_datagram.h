@@ -8,7 +8,7 @@ namespace aw {
 struct socket_datagram : socket {
 	// \exceptions
 	//    throws std::runtime_error if any error has occured
-	socket_datagram(ip4_address addr, std::uint16_t port);
+	socket_datagram();
 
 	// receive a message from the socket
 	//
