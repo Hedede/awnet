@@ -1,7 +1,7 @@
 #pragma once
 #include <server/data_callback.h>
 #include <server/client_connection.h>
-#include <shared/socket_datagram.h>
+#include <shared/socket_udp.h>
 
 namespace aw {
 class multiplexer;
@@ -12,7 +12,7 @@ struct udp_server : data_callback {
 	void on_data_received() override;
 
 private:
-	socket_datagram sock;
+	socket_udp sock;
 };
 
 } // namespace aw

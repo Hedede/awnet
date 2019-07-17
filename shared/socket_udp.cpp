@@ -1,4 +1,4 @@
-#include <shared/socket_datagram.h>
+#include <shared/socket_udp.h>
 
 #include <unistd.h>
 #include <sys/socket.h>
@@ -13,7 +13,7 @@
 #include "address_util.h"
 
 namespace aw {
-socket_datagram::socket_datagram()
+socket_udp::socket_udp()
 	: socket(protocol::udp)
 {
 }
@@ -35,7 +35,7 @@ static auto receive_impl( int fd, int flags, std::string& msg, ip4_address& addr
 	return size;
 }
 
-std::string socket_datagram::receive(ip4_address& addr, std::uint16_t& port)
+std::string socket_udp::receive(ip4_address& addr, std::uint16_t& port)
 {
 	std::string msg;
 	auto err = receive_impl( get_fd(), 0, msg, addr, port);
@@ -46,7 +46,7 @@ std::string socket_datagram::receive(ip4_address& addr, std::uint16_t& port)
 	return msg;
 }
 
-std::optional<std::string> socket_datagram::receive_async(ip4_address& addr, std::uint16_t& port)
+std::optional<std::string> socket_udp::receive_async(ip4_address& addr, std::uint16_t& port)
 {
 	std::string msg;
 	auto err = receive_impl( get_fd(), MSG_DONTWAIT, msg, addr, port);
@@ -59,7 +59,7 @@ std::optional<std::string> socket_datagram::receive_async(ip4_address& addr, std
 	return msg;
 }
 
-void socket_datagram::send(std::string_view msg, ip4_address addr, std::uint16_t port)
+void socket_udp::send(std::string_view msg, ip4_address addr, std::uint16_t port)
 {
 	auto sa = make_sockaddr_in(addr, port);
 	auto size = sendto(get_fd(), msg.data(), msg.size(), 0, (struct sockaddr*)&sa, sizeof(sa));

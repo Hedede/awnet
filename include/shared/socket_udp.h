@@ -5,10 +5,10 @@
 #include <shared/socket_inet.h>
 
 namespace aw {
-struct socket_datagram : socket {
+struct socket_udp : socket {
 	// \exceptions
 	//    throws std::runtime_error if any error has occured
-	socket_datagram();
+	socket_udp();
 
 	// receive a message from the socket
 	//
